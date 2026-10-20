@@ -1,4 +1,4 @@
-name: Android CI
+name: CoreLauncher Android CI
 
 on:
   pull_request:
@@ -71,28 +71,28 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Build Debug .apk
+      - name: Build CoreLauncher Debug APK
         run: |
           gradle :app_pojavlauncher:assembleDebug
-          mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug.apk
-      - name: Build APK without runtime
+          mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/CoreLauncher-debug.apk
+      - name: Build CoreLauncher APK without runtime
         run: |
           rm -r app_pojavlauncher/src/main/assets/components/jre
           rm -r app_pojavlauncher/src/main/assets/components/jre-new
           rm -r app_pojavlauncher/src/main/assets/components/jre-21
           gradle assembleDebug
-          mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/app-debug-noruntime.apk
-      - name: Gen md5sums
+          mv app_pojavlauncher/build/outputs/apk/debug/app_pojavlauncher-debug.apk out/CoreLauncher-debug-noruntime.apk
+      - name: Generate checksums
         run: |
-          md5sum out/app-debug.apk > out/app-debug.md5
-          md5sum out/app-debug-noruntime.apk > out/app-debug-noruntime.md5
-      - name: Upload APK
+          md5sum out/CoreLauncher-debug.apk > out/CoreLauncher-debug.md5
+          md5sum out/CoreLauncher-debug-noruntime.apk > out/CoreLauncher-debug-noruntime.md5
+      - name: Upload CoreLauncher APK
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug
-          path: out/app-debug.*
-      - name: Upload APK (without runtime)
+          name: CoreLauncher-debug
+          path: out/CoreLauncher-debug.*
+      - name: Upload CoreLauncher APK (without runtime)
         uses: actions/upload-artifact@v4
         with:
-          name: app-debug-noruntime
-          path: out/app-debug-noruntime.*
+          name: CoreLauncher-debug-noruntime
+          path: out/CoreLauncher-debug-noruntime.*
