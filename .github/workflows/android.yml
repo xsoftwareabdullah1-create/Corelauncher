@@ -21,6 +21,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: "recursive"
+      - name: Restore complete upstream source tree
+        run: |
+          set -euo pipefail
+          git clone --depth 1 --recurse-submodules --branch v3_openjdk https://github.com/PojavLauncherTeam/PojavLauncher.git /tmp/corelauncher-upstream
+          tar --exclude=.git -cf - -C /tmp/corelauncher-upstream . | tar -xf -
+          git checkout -- .
+          test -f app_pojavlauncher/src/main/jni/Android.mk
+          test -f scripts/languagelist_updater.sh
       - name: Set up JDK 21
         uses: actions/setup-java@v3
         with:
