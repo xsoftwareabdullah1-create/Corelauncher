@@ -3,11 +3,12 @@ plugins {
 }
 
 android {
+    // Keep the upstream Java namespace until the full source tree is migrated.
     namespace 'net.kdt.pojavlaunch'
     compileSdk 34
 
     defaultConfig {
-        applicationId 'net.kdt.pojavlaunch'
+        applicationId 'com.corelauncher'
         minSdk 21
         targetSdk 34
         versionCode 1
